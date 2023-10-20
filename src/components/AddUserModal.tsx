@@ -2,7 +2,7 @@ import {Button, Form, Modal} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {UserInfo} from '../Model/userInfo.ts'
 import {db} from "../firebase.ts";
-import { setDoc, doc, updateDoc} from 'firebase/firestore'
+import { setDoc, doc, updateDoc, collection} from 'firebase/firestore'
 import firebase from "firebase/compat/app";
 import DocumentData = firebase.firestore.DocumentData;
 import * as Yup  from 'yup'
@@ -34,7 +34,7 @@ export default function AddUserModal({onDismiss, onAdduser, userToEdit } :addMod
             id : userToEdit?.id || ""
         }, resolver : yupResolver(userSchema)
     })
-    const userCollectionRef = db.collection("users");
+    const userCollectionRef = collection(db,"users");
 
     async function onSubmit(input : UserInfo | DocumentData ){
         try {

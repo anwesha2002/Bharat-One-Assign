@@ -1,6 +1,6 @@
 import {Container, Table} from "react-bootstrap";
 import  {useEffect, useState} from "react";
-import { getDocs , query}  from 'firebase/firestore'
+import { getDocs , query , collection, orderBy}  from 'firebase/firestore'
 import {db} from "../firebase.ts";
 import firebase from "firebase/compat/app";
 import DocumentData = firebase.firestore.DocumentData;
@@ -12,7 +12,7 @@ import AddUserModal from "../components/AddUserModal.tsx";
 
 export default function Home(){
     const [user, setUser] = useState<DocumentData[]| UserInfo[]>([])
-    const userCollectionRef = query(db.collection("users").orderBy("name"));
+    const userCollectionRef = query(collection(db,"users") ,orderBy("name"));
     const [userToEdit , setUserToEdit] = useState<UserInfo | DocumentData | null>(null)
 
     useEffect(() => {
